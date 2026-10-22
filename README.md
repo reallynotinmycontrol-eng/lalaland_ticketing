@@ -36,6 +36,9 @@ After Razorpay KYC approval: generate **live** keys, add the webhook again in **
 
 ---
 
+## Branding
+Styled to match lalalandflea.com: cream `#FDFDF3`/`#FFFACF`, orange-red `#FF522B` (the admin "Accent colour"), sunshine `#FFD600`, periwinkle `#8585FF` headings with a black outline, pink `#FF007A`, Poppins for text. The main site's display face (Woodburger) is a custom font, so the app uses the free Google font **Rubik Mono One** as a close stand-in. In Admin → Event, set **Logo image URL** (e.g. the logo from your WordPress media library) and **Banner image URL** for the hero photo.
+
 ## Email setup (SMTP)
 Use Brevo, Zoho Mail or Amazon SES, not the Hostinger mailbox. Verify your sending domain (SPF and DKIM DNS records, which the provider shows you) so tickets don't land in spam. Then fill in `mail.*` in `config.php` and set `mail.enabled` to `true`.
 

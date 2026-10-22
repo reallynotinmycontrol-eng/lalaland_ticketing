@@ -27,10 +27,14 @@ render_header($s['event_name'], [
   <?php if (!$isGate): ?>
   <section class="hero<?= $banner ? ' has-banner' : '' ?>">
     <?php if ($banner): ?><img class="hero-img" src="<?= e($banner) ?>" alt=""><?php endif; ?>
+    <span class="sparkle" style="top:22%;left:12%" aria-hidden="true">✦</span>
+    <span class="sparkle s2" style="top:30%;right:14%" aria-hidden="true">✦</span>
+    <span class="sparkle s3" style="bottom:22%;left:22%" aria-hidden="true">✦</span>
     <div class="hero-text wrap">
       <p class="eyebrow"><?= e(fmt_datetime($s['event_datetime'], 'l, j F Y')) ?></p>
       <h1 class="display"><?= e($s['event_name']) ?></h1>
       <?php if ($s['event_tagline']): ?><p class="tagline"><?= e($s['event_tagline']) ?></p><?php endif; ?>
+      <?php if ($salesOpen && !$soldOut): ?><p class="hero-cta"><a class="btn btn-primary" href="#book">Buy tickets</a></p><?php endif; ?>
     </div>
   </section>
   <?php else: ?>
@@ -51,6 +55,7 @@ render_header($s['event_name'], [
         <div><dt>Price</dt><dd><?= e(money($price)) ?> <span class="muted">per person</span></dd></div>
       </dl>
       <?php if ($s['event_description']): ?>
+      <h2 class="brand-title">What's on</h2>
       <div class="prose"><?= nl2br(e($s['event_description'])) ?></div>
       <?php endif; ?>
       <?php if ($mapSrc): ?>
@@ -69,7 +74,7 @@ render_header($s['event_name'], [
           <p class="muted">All tickets have been sold. Seats held by unfinished payments are released after <?= (int) config('hold_minutes', 15) ?> minutes, so check back shortly.</p>
         <?php else: ?>
           <div class="book-head">
-            <h2>Get tickets</h2>
+            <h2 class="brand-title" style="margin:0">Tickets</h2>
             <div class="price"><?= e(money($price)) ?><span>/person</span></div>
           </div>
           <?php if ($lowStock): ?><p class="stock">Only <?= $left ?> left</p><?php endif; ?>

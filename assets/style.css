@@ -3,20 +3,27 @@
    --accent is set per event from admin settings.
    ========================================================================== */
 :root {
-  --accent: #e8452c;
-  --ink: #141414;
-  --ink-2: #4a4744;
-  --muted: #7c7873;
-  --paper: #f6f3ee;
+  /* LaLaLand brand (from lalalandflea.com) */
+  --accent: #ff522b;   /* orange-red: CTAs, highlights (editable in admin) */
+  --sun: #ffd600;      /* sunshine yellow */
+  --peri: #8585ff;     /* periwinkle: display headings */
+  --pink: #ff007a;
+  --cream: #fffacf;    /* header band */
+  --ink: #101010;
+  --ink-2: #3d3d3d;
+  --muted: #6e6a60;
+  --paper: #fdfdf3;
   --card: #ffffff;
-  --line: #e7e2da;
+  --line: #ebe6d6;
   --ok: #138a4b;
   --bad: #d22f27;
   --warn: #b7791f;
   --radius: 18px;
   --shadow: 0 1px 2px rgba(20,20,20,.04), 0 8px 24px rgba(20,20,20,.06);
-  --display: 'Bricolage Grotesque', 'Inter', system-ui, sans-serif;
-  --body: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --display: 'Rubik Mono One', 'Poppins', system-ui, sans-serif;
+  --body: 'Poppins', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  --outline: 2px 2px 0 var(--ink), -1px -1px 0 var(--ink), 1px -1px 0 var(--ink), -1px 1px 0 var(--ink);
+  --pop: 4px 4px 0 var(--ink);
   --mono: ui-monospace, 'SF Mono', Menlo, Consolas, monospace;
 }
 *, *::before, *::after { box-sizing: border-box; }
@@ -269,3 +276,103 @@ details summary { list-style: none; } details summary::-webkit-details-marker { 
 @keyframes pop { from { opacity: 0; transform: scale(1.03); } to { opacity: 1; transform: none; } }
 
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation: none !important; transition: none !important; } }
+
+
+/* ==========================================================================
+   LaLaLand brand layer — cream, sunshine, orange-red and periwinkle,
+   chunky outlined display type and sticker-style hard shadows.
+   ========================================================================== */
+h1, h2, h3 { font-family: var(--body); font-weight: 700; letter-spacing: -.01em; }
+.eyebrow { color: var(--accent); letter-spacing: .1em; font-weight: 700; }
+
+/* Public header (cream band with the logo, like the main site) */
+.site-header { background: var(--cream); border-bottom: 2px solid var(--ink); position: sticky; top: 0; z-index: 30; }
+.site-header-in { display: flex; align-items: center; justify-content: space-between; min-height: 64px; }
+.site-logo img { height: 40px; width: auto; }
+.site-logo span { font: 400 1.05rem var(--display); color: var(--sun); text-shadow: var(--outline); text-transform: uppercase; text-decoration: none; }
+.site-logo { text-decoration: none; }
+.header-cta { font: 700 .9rem var(--body); text-decoration: none; color: var(--ink); background: var(--sun); border: 2px solid var(--ink); border-radius: 999px; padding: 7px 16px; box-shadow: 2px 2px 0 var(--ink); }
+.header-cta:active { transform: translate(2px, 2px); box-shadow: none; }
+
+/* Buttons: sticker style */
+.btn { border: 2px solid var(--ink); font-weight: 700; }
+.btn:hover { background: var(--cream); }
+.btn-primary { background: var(--accent); border-color: var(--ink); color: #fff; box-shadow: var(--pop); }
+.btn-primary:hover { background: color-mix(in srgb, var(--accent) 88%, #000); }
+.btn-primary:active { transform: translate(3px, 3px); box-shadow: 1px 1px 0 var(--ink); }
+.btn-block { font-size: 1.1rem; letter-spacing: .01em; }
+input:focus, select:focus, textarea:focus { border-color: var(--ink); box-shadow: 0 0 0 3px color-mix(in srgb, var(--sun) 55%, transparent); }
+input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
+
+/* Hero: warm orange wash over the photo, title in outlined sunshine type */
+.hero { background: linear-gradient(135deg, #ff7a3d 0%, var(--accent) 45%, var(--pink) 100%); border-bottom: 2px solid var(--ink); }
+.hero::before { background: radial-gradient(60% 70% at 85% 10%, color-mix(in srgb, var(--sun) 55%, transparent) 0%, transparent 70%); }
+.hero-img { opacity: 1; mix-blend-mode: normal; }
+.hero.has-banner::after { background: linear-gradient(180deg, rgba(255,82,43,.35) 0%, rgba(255,82,43,.55) 55%, rgba(16,16,16,.6) 100%); }
+.hero-text { text-align: center; }
+.hero .eyebrow { display: inline-block; color: var(--ink); background: var(--cream); border: 2px solid var(--ink); border-radius: 999px; padding: 5px 14px; letter-spacing: .06em; box-shadow: 2px 2px 0 var(--ink); }
+.display { font-family: var(--display); font-weight: 400; color: var(--sun); text-transform: uppercase; letter-spacing: 0; line-height: 1.02; max-width: none; margin: 14px auto 10px;
+  font-size: clamp(2.1rem, 10vw, 4.6rem); text-shadow: 3px 3px 0 var(--ink), -2px -2px 0 var(--ink), 2px -2px 0 var(--ink), -2px 2px 0 var(--ink), 0 3px 0 var(--ink), 3px 0 0 var(--ink); }
+.display.small { font-size: clamp(1.6rem, 8vw, 2.6rem); }
+.tagline { color: #fff; font-weight: 600; font-size: 1.1rem; margin: 0 auto; text-shadow: 0 1px 2px rgba(0,0,0,.35); }
+.sparkle { position: absolute; color: #fff; font-size: 1.6rem; z-index: 1; animation: twinkle 2.4s ease-in-out infinite; pointer-events: none; }
+.sparkle.s2 { animation-delay: .8s; font-size: 1.1rem; } .sparkle.s3 { animation-delay: 1.5s; font-size: 1.3rem; }
+@keyframes twinkle { 0%, 100% { opacity: .35; transform: scale(.85); } 50% { opacity: 1; transform: scale(1.1); } }
+.gate-head .display { color: var(--peri); }
+.is-gate .gate-head { text-align: center; }
+
+/* Section headings in the site's periwinkle outlined style */
+.brand-title { font: 400 clamp(1.4rem, 6vw, 2rem)/1.1 var(--display); color: var(--peri); text-transform: uppercase; text-shadow: var(--outline); margin: 0 0 .6em; }
+.lead { color: var(--accent); font-weight: 700; font-size: 1.08rem; }
+
+/* Cards & facts get the sticker treatment */
+.facts, .card, .stat, .map, .ticket { border: 2px solid var(--ink); box-shadow: var(--pop); }
+.facts > div { border-bottom: 2px dashed var(--line); }
+.facts dt { color: var(--accent); }
+.book-card { border-top: 2px solid var(--ink); background: var(--card); position: relative; }
+.book-card::before { content: '☀'; position: absolute; top: -22px; right: 18px; font-size: 2.2rem; line-height: 1; color: var(--sun); text-shadow: var(--outline); }
+.price { font-family: var(--display); font-weight: 400; font-size: 1.35rem; color: var(--accent); text-shadow: none; }
+.stock { background: var(--sun); color: var(--ink); border: 2px solid var(--ink); }
+.stepper { border: 2px solid var(--ink); }
+.stepper button { background: var(--cream); }
+.terms h3 { font: 400 1.1rem var(--display); color: var(--peri); text-shadow: var(--outline); text-transform: uppercase; }
+.site-footer { border-top: 2px solid var(--ink); background: var(--cream); max-width: none; padding: 18px max(16px, calc((100% - 1048px) / 2)); color: var(--ink-2); }
+
+/* Ticket: orange-red stub, sunshine admit sticker */
+.ticket { border-radius: 24px; }
+.ticket-top { background: linear-gradient(135deg, var(--accent) 0%, var(--pink) 100%); }
+.ticket-top::before { background: radial-gradient(70% 90% at 100% 0%, color-mix(in srgb, var(--sun) 60%, transparent), transparent 65%); }
+.ticket-top .eyebrow { background: var(--sun); color: var(--ink); border: 2px solid var(--ink); box-shadow: 2px 2px 0 var(--ink); }
+.ticket-top h1 { font: 400 1.55rem/1.1 var(--display); color: #fff; text-transform: uppercase; text-shadow: var(--outline); }
+.ticket-tear { border-top: 2px dashed var(--ink); }
+.ticket-tear::before, .ticket-tear::after { border: 2px solid var(--ink); }
+.ticket-meta { border-top: 2px solid var(--ink); background: var(--cream); }
+.ticket-meta dt { color: var(--accent); }
+.stamp { font-family: var(--display); font-weight: 400; }
+.ticket.is-inactive .ticket-top { background: #6e6a60; }
+.notice.ok { border: 2px solid var(--ink); background: #d9f7e5; box-shadow: 3px 3px 0 var(--ink); }
+.spinner { border-top-color: var(--accent); }
+
+/* Staff & admin: same palette, calmer */
+.topbar { background: var(--ink); border-bottom: 3px solid var(--accent); }
+.brand { font: 400 .95rem var(--display); color: var(--sun); text-transform: uppercase; }
+.stat strong { font-family: var(--body); font-weight: 800; }
+.bar i { background: linear-gradient(90deg, var(--accent), var(--pink)); }
+.admin-head h1 { font: 400 1.5rem/1.15 var(--display); text-transform: uppercase; color: var(--peri); text-shadow: var(--outline); }
+.login-card h1, .narrow .card > h1 { font: 400 1.4rem var(--display); text-transform: uppercase; color: var(--peri); text-shadow: var(--outline); }
+.table th { color: var(--accent); }
+
+/* Scanner: dark, with brand type on the result screen */
+.page-scan .topbar { border-bottom-color: var(--sun); }
+.scan-counter strong { font-family: var(--body); font-weight: 800; color: var(--sun); }
+.scan-tabs button[aria-selected="true"] { background: var(--sun); color: var(--ink); }
+.reader { border: 3px solid var(--sun); }
+.result-title { font-family: var(--display); font-weight: 400; text-shadow: 3px 3px 0 rgba(0,0,0,.35); }
+.result-admit { font-family: var(--body); font-weight: 800; }
+.result.is-ok { background: #0f9d58; }
+.result.is-bad { background: #e3262f; }
+.hero-cta { margin: 22px 0 0; }
+.hero-cta .btn { min-height: 52px; padding: 12px 30px; font-size: 1.05rem; background: var(--sun); color: var(--ink); }
+.book-head { align-items: center; margin-bottom: 12px; }
+/* Rubik Mono One is very wide: tighten word gaps in display type */
+.display, .brand-title, .ticket-top h1, .admin-head h1, .login-card h1, .narrow .card > h1, .terms h3, .brand, .site-logo span, .result-title { word-spacing: -.3em; }

@@ -108,19 +108,19 @@ function ticket_email_html(array $b, array $s): string
     $mapHtml = $map ? '<p style="margin:8px 0 0"><a href="' . e($map) . '" style="color:' . $accent . '">Get directions</a></p>' : '';
     $terms = $s['terms'] ? '<p style="font-size:12px;color:#8a8a8a;line-height:1.5;margin:24px 0 0">' . nl2br(e($s['terms'])) . '</p>' : '';
 
-    return '<!doctype html><html><body style="margin:0;background:#f4f2ee;font-family:-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">'
-        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#f4f2ee;padding:24px 12px"><tr><td align="center">'
-        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:16px;overflow:hidden">'
-        . '<tr><td style="background:' . $accent . ';padding:20px 24px;color:#ffffff">'
+    return '<!doctype html><html><body style="margin:0;background:#fdfdf3;font-family:Poppins,-apple-system,Segoe UI,Roboto,Helvetica,Arial,sans-serif">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="background:#fdfdf3;padding:24px 12px"><tr><td align="center">'
+        . '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" style="max-width:480px;background:#ffffff;border-radius:18px;overflow:hidden;border:2px solid #101010">'
+        . '<tr><td style="background:' . $accent . ';background-image:linear-gradient(135deg,' . $accent . ',#ff007a);padding:20px 24px;color:#ffffff">'
         . '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85">Your ticket</div>'
-        . '<div style="font-size:22px;font-weight:700;margin-top:4px">' . e($s['event_name']) . '</div></td></tr>'
+        . '<div style="font-size:22px;font-weight:800;margin-top:4px;text-transform:uppercase;letter-spacing:.02em">' . e($s['event_name']) . '</div></td></tr>'
         . '<tr><td style="padding:24px" align="center">'
         . '<img src="cid:ticketqr" alt="Ticket QR code" width="240" height="240" style="display:block;width:240px;height:240px;border:0">'
         . '<div style="font-size:12px;color:#8a8a8a;margin-top:6px">Show this QR at the entry gate. It admits entry once.</div>'
         . '<div style="font-size:11px;color:#aaaaaa;margin-top:4px">QR not showing? <a href="' . $qrFallback . '" style="color:#8a8a8a">Open it here</a></div>'
         . '</td></tr>'
         . '<tr><td style="padding:0 24px"><table role="presentation" width="100%" style="font-size:15px;border-top:1px solid #eeeeee;padding-top:8px">' . $rowsHtml . '</table>' . $mapHtml . '</td></tr>'
-        . '<tr><td style="padding:24px" align="center"><a href="' . $ticketUrl . '" style="display:inline-block;background:#141414;color:#ffffff;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:600">View ticket</a>'
+        . '<tr><td style="padding:24px" align="center"><a href="' . $ticketUrl . '" style="display:inline-block;background:#ffd600;color:#101010;text-decoration:none;padding:12px 28px;border-radius:999px;font-weight:700;border:2px solid #101010">View ticket</a>'
         . $terms . '</td></tr>'
         . '</table><div style="font-size:12px;color:#9a9a9a;margin-top:12px">' . e((string) config('organiser_name')) . '</div>'
         . '</td></tr></table></body></html>';

@@ -35,12 +35,22 @@ function render_header(string $title, array $opt = []): void
 <meta name="theme-color" content="<?= e($accent) ?>">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&family=Rubik+Mono+One&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="/assets/style.css?v=<?= e(asset_version('style.css')) ?>">
 <style>:root{--accent:<?= e($accent) ?>}</style>
 <?= $opt['head'] ?? '' ?>
 </head>
 <body class="<?= e($opt['body_class'] ?? '') ?>">
+<?php if ($nav === 'public'): $logo = safe_url(setting('logo_url')); $main = safe_url((string) config('main_site_url')); ?>
+<header class="site-header">
+  <div class="wrap site-header-in">
+    <a class="site-logo" href="<?= e($main ?: '/') ?>">
+      <?php if ($logo): ?><img src="<?= e($logo) ?>" alt="<?= e($eventName) ?>"><?php else: ?><span><?= e($eventName) ?></span><?php endif; ?>
+    </a>
+    <a class="header-cta" href="/#book">Tickets</a>
+  </div>
+</header>
+<?php endif; ?>
 <?php if ($nav === 'staff' || $nav === 'admin'): ?>
 <header class="topbar">
   <a class="brand" href="<?= $nav === 'admin' ? '/admin/' : '/scan.php' ?>"><?= e($eventName) ?></a>

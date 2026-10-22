@@ -314,8 +314,8 @@ function with_capacity_lock(callable $fn): mixed
 /** Accent colour, sanitised for safe use in CSS. */
 function accent_color(): string
 {
-    $c = setting('accent_color', '#e8452c');
-    return preg_match('/^#[0-9a-fA-F]{6}$/', $c) ? $c : '#e8452c';
+    $c = setting('accent_color', '#ff522b');
+    return preg_match('/^#[0-9a-fA-F]{6}$/', $c) ? $c : '#ff522b';
 }
 
 /** Extract the src of a pasted Google Maps <iframe>, or accept a bare URL. */
