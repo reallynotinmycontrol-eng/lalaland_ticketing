@@ -27,6 +27,7 @@ if (($_SERVER['HTTP_IF_NONE_MATCH'] ?? '') === $etag) {
 $size = (int) ($_GET['s'] ?? 10);
 $size = max(4, min(16, $size));
 
-header('Content-Type: image/png');
-header('Content-Disposition: inline; filename="ticket-' . $b['ref'] . '.png"');
-echo qr_png(ticket_url($b), $size);
+[$mime, $bytes] = qr_image(ticket_url($b), $size);
+header('Content-Type: ' . $mime);
+header('Content-Disposition: inline; filename="ticket-' . $b['ref'] . ($mime === 'image/png' ? '.png' : '.svg') . '"');
+echo $bytes;

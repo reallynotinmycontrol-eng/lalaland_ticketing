@@ -13,6 +13,26 @@ use PHPMailer\PHPMailer\PHPMailer;
  * outcome in email_status / wa_status so the admin can see it and resend.
  */
 
+/**
+ * QR image for $data: PNG when GD is available (needed for email and
+ * WhatsApp), otherwise SVG so the ticket page and scanner still work.
+ * @return array{0:string,1:string} [mime type, bytes]
+ */
+function qr_image(string $data, int $scale = 10): array
+{
+    if (extension_loaded('gd')) {
+        return ['image/png', qr_png($data, $scale)];
+    }
+    $options = new QROptions([
+        'outputType'      => QROutputInterface::MARKUP_SVG,
+        'outputBase64'    => false,
+        'eccLevel'        => EccLevel::M,
+        'quietzoneSize'   => 4,
+        'svgAddXmlHeader' => true,
+    ]);
+    return ['image/svg+xml', (new QRCode($options))->render($data)];
+}
+
 function qr_png(string $data, int $scale = 10): string
 {
     $options = new QROptions([
@@ -71,7 +91,9 @@ function send_ticket_email(array $b): string
         $mail->addAddress((string) $b['email'], (string) $b['name']);
 
         $mail->Subject = 'Your ticket for ' . $s['event_name'] . ' — ' . $b['ref'];
-        $mail->addStringEmbeddedImage(qr_png(ticket_url($b), 8), 'ticketqr', 'ticket-qr.png', PHPMailer::ENCODING_BASE64, 'image/png');
+        if (extension_loaded('gd')) {
+            $mail->addStringEmbeddedImage(qr_png(ticket_url($b), 8), 'ticketqr', 'ticket-qr.png', PHPMailer::ENCODING_BASE64, 'image/png');
+        }
         $mail->isHTML(true);
         $mail->Body = ticket_email_html($b, $s);
         $mail->AltBody = ticket_email_text($b, $s);
@@ -115,7 +137,7 @@ function ticket_email_html(array $b, array $s): string
         . '<div style="font-size:12px;letter-spacing:.08em;text-transform:uppercase;opacity:.85">Your ticket</div>'
         . '<div style="font-size:22px;font-weight:800;margin-top:4px;text-transform:uppercase;letter-spacing:.02em">' . e($s['event_name']) . '</div></td></tr>'
         . '<tr><td style="padding:24px" align="center">'
-        . '<img src="cid:ticketqr" alt="Ticket QR code" width="240" height="240" style="display:block;width:240px;height:240px;border:0">'
+        . '<img src="' . (extension_loaded('gd') ? 'cid:ticketqr' : $qrFallback) . '" alt="Ticket QR code" width="240" height="240" style="display:block;width:240px;height:240px;border:0">'
         . '<div style="font-size:12px;color:#8a8a8a;margin-top:6px">Show this QR at the entry gate. It admits entry once.</div>'
         . '<div style="font-size:11px;color:#aaaaaa;margin-top:4px">QR not showing? <a href="' . $qrFallback . '" style="color:#8a8a8a">Open it here</a></div>'
         . '</td></tr>'

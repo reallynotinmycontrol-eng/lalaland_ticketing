@@ -11,7 +11,6 @@ require __DIR__ . '/app/bootstrap.php';
 $checks = [
     'PHP 8.1 or newer'          => version_compare(PHP_VERSION, '8.1.0', '>='),
     'PDO ' . db_driver()        => extension_loaded('pdo_' . db_driver()),
-    'GD (QR images)'            => extension_loaded('gd'),
     'cURL (Razorpay, WhatsApp)' => extension_loaded('curl'),
     'mbstring'                  => extension_loaded('mbstring'),
     'OpenSSL'                   => extension_loaded('openssl'),
@@ -79,6 +78,7 @@ render_header('Setup', ['nav' => 'none', 'body_class' => 'page-install']);
       <li class="<?= $pass ? 'pass' : 'fail' ?>"><?= $pass ? '✓' : '✗' ?> <?= e($label) ?></li>
       <?php endforeach; ?>
       <li class="<?= $https ? 'pass' : 'warn' ?>"><?= $https ? '✓' : '!' ?> base_url uses https <?= $https ? '' : '(needed for phone cameras and payments)' ?></li>
+      <li class="<?= extension_loaded('gd') ? 'pass' : 'warn' ?>"><?= extension_loaded('gd') ? '✓' : '!' ?> GD extension <?= extension_loaded('gd') ? '' : '(needed for QR images in email and WhatsApp; ticket pages still work)' ?></li>
       <li class="<?= $keysSet ? 'pass' : 'warn' ?>"><?= $keysSet ? '✓' : '!' ?> Razorpay keys in config <?= $keysSet ? '' : '(add them before taking payments)' ?></li>
     </ul>
     <?php if ($dbError): ?>

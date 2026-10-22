@@ -7,7 +7,8 @@ require dirname(__DIR__) . '/app/bootstrap.php';
 require_role('admin');
 $s = settings();
 $gateUrl = url('/?from=gate');
-$qr = base64_encode(qr_png($gateUrl, 16));
+[$qrMime, $qrBytes] = qr_image($gateUrl, 16);
+$qr = base64_encode($qrBytes);
 $price = price_paise('gate');
 $accent = accent_color();
 header('Content-Type: text/html; charset=utf-8');
@@ -52,7 +53,7 @@ header('Content-Type: text/html; charset=utf-8');
   <p class="eyebrow"><?= e(fmt_datetime($s['event_datetime'], 'l, j F')) ?></p>
   <h1><?= display_text($s['event_name']) ?></h1>
   <div class="cta"><?= display_text('Scan to buy tickets') ?></div>
-  <div class="qrbox"><img class="qr" src="data:image/png;base64,<?= $qr ?>" alt="QR code to buy tickets"></div>
+  <div class="qrbox"><img class="qr" src="data:<?= e($qrMime) ?>;base64,<?= $qr ?>" alt="QR code to buy tickets"></div>
   <div class="steps">
     <span><b>1</b> Scan</span><span><b>2</b> Pay with UPI</span><span><b>3</b> Show QR at entry</span>
   </div>
