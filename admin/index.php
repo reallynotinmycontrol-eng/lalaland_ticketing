@@ -35,7 +35,7 @@ render_header('Dashboard', ['nav' => 'admin', 'body_class' => 'page-admin']);
 <main class="wrap admin">
   <div class="admin-head">
     <div>
-      <h1><?= e($s['event_name']) ?></h1>
+      <h1><?= display_text($s['event_name']) ?></h1>
       <p class="muted"><?= e(fmt_datetime($s['event_datetime'])) ?><?= $s['event_venue'] ? ' · ' . e($s['event_venue']) : '' ?></p>
     </div>
     <div class="switches">

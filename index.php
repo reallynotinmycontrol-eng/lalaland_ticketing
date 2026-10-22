@@ -32,7 +32,7 @@ render_header($s['event_name'], [
     <span class="sparkle s3" style="bottom:22%;left:22%" aria-hidden="true">✦</span>
     <div class="hero-text wrap">
       <p class="eyebrow"><?= e(fmt_datetime($s['event_datetime'], 'l, j F Y')) ?></p>
-      <h1 class="display"><?= e($s['event_name']) ?></h1>
+      <h1 class="display"><?= display_text($s['event_name']) ?></h1>
       <?php if ($s['event_tagline']): ?><p class="tagline"><?= e($s['event_tagline']) ?></p><?php endif; ?>
       <?php if ($salesOpen && !$soldOut): ?><p class="hero-cta"><a class="btn btn-primary" href="#book">Buy tickets</a></p><?php endif; ?>
     </div>
@@ -40,7 +40,7 @@ render_header($s['event_name'], [
   <?php else: ?>
   <section class="gate-head wrap">
     <p class="eyebrow">Buy at the gate</p>
-    <h1 class="display small"><?= e($s['event_name']) ?></h1>
+    <h1 class="display small"><?= display_text($s['event_name']) ?></h1>
   </section>
   <?php endif; ?>
 
@@ -55,7 +55,7 @@ render_header($s['event_name'], [
         <div><dt>Price</dt><dd><?= e(money($price)) ?> <span class="muted">per person</span></dd></div>
       </dl>
       <?php if ($s['event_description']): ?>
-      <h2 class="brand-title">What's on</h2>
+      <h2 class="brand-title"><?= display_text("What's on") ?></h2>
       <div class="prose"><?= nl2br(e($s['event_description'])) ?></div>
       <?php endif; ?>
       <?php if ($mapSrc): ?>

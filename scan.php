@@ -46,6 +46,6 @@ render_header('Scanner', [
     </div>
   </div>
 </main>
-<script src="https://unpkg.com/html5-qrcode@2.3.8/html5-qrcode.min.js"></script>
+<script src="/assets/vendor/html5-qrcode.min.js?v=2.3.8"></script>
 <script src="/assets/scan.js?v=<?= e(asset_version('scan.js')) ?>"></script>
 <?php render_footer(['nav' => 'staff']);

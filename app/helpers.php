@@ -346,3 +346,12 @@ function csv_cell(mixed $v): string
     }
     return $s;
 }
+
+/**
+ * Escape text for the wide display font. Spaces are rendered in the body
+ * font so word gaps look right whether or not the display font has loaded.
+ */
+function display_text(string $s): string
+{
+    return implode('<span class="sp"> </span>', array_map('e', preg_split('/\s+/u', trim($s))));
+}

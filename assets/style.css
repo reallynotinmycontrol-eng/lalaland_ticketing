@@ -374,5 +374,6 @@ input[type="checkbox"], input[type="radio"] { accent-color: var(--accent); }
 .hero-cta { margin: 22px 0 0; }
 .hero-cta .btn { min-height: 52px; padding: 12px 30px; font-size: 1.05rem; background: var(--sun); color: var(--ink); }
 .book-head { align-items: center; margin-bottom: 12px; }
-/* Rubik Mono One is very wide: tighten word gaps in display type */
-.display, .brand-title, .ticket-top h1, .admin-head h1, .login-card h1, .narrow .card > h1, .terms h3, .brand, .site-logo span, .result-title { word-spacing: -.3em; }
+/* Word gaps in display type use the body font's narrow space (see display_text()) */
+.sp { font-family: var(--body); }
+.brand { font: 800 .95rem var(--body); letter-spacing: .02em; }

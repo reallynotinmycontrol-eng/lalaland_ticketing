@@ -22,13 +22,14 @@ header('Content-Type: text/html; charset=utf-8');
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700&family=Rubik+Mono+One&display=swap" rel="stylesheet">
 <style>
   @page { size: A4; margin: 0; }
+  .sp { font-family: Poppins, sans-serif; }
   * { box-sizing: border-box; }
   html, body { margin: 0; background: #ddd; font-family: Poppins, system-ui, sans-serif; color: #101010; }
   .sheet { width: 210mm; height: 297mm; margin: 10mm auto; background: #fdfdf3; padding: 18mm 16mm; display: flex; flex-direction: column; align-items: center; text-align: center; border-top: 14mm solid <?= e($accent) ?>; }
   .eyebrow { text-transform: uppercase; letter-spacing: .14em; font-weight: 600; font-size: 13pt; color: #555; margin: 0; }
-  h1 { word-spacing: -.3em; font-family: 'Rubik Mono One', sans-serif; font-weight: 400; font-size: 34pt; line-height: 1.05; margin: 6mm 0 0; color: #8585ff; text-shadow: 2px 2px 0 #101010, -1px -1px 0 #101010, 1px -1px 0 #101010, -1px 1px 0 #101010; text-transform: uppercase; }
+  h1 { font-family: 'Rubik Mono One', sans-serif; font-weight: 400; font-size: 34pt; line-height: 1.05; margin: 6mm 0 0; color: #8585ff; text-shadow: 2px 2px 0 #101010, -1px -1px 0 #101010, 1px -1px 0 #101010, -1px 1px 0 #101010; text-transform: uppercase; }
   .logo { max-height: 26mm; margin-bottom: 4mm; }
-  .cta { word-spacing: -.3em; font-family: 'Rubik Mono One', sans-serif; font-size: 40pt; line-height: 1.05; margin: 10mm 0 8mm; color: #ffd600; text-shadow: 3px 3px 0 #101010, -1.5px -1.5px 0 #101010, 1.5px -1.5px 0 #101010, -1.5px 1.5px 0 #101010; text-transform: uppercase; }
+  .cta { font-family: 'Rubik Mono One', sans-serif; font-size: 40pt; line-height: 1.05; margin: 10mm 0 8mm; color: #ffd600; text-shadow: 3px 3px 0 #101010, -1.5px -1.5px 0 #101010, 1.5px -1.5px 0 #101010, -1.5px 1.5px 0 #101010; text-transform: uppercase; }
   .qrbox { background: #fff; border: 2.5mm solid #101010; border-radius: 6mm; padding: 4mm; box-shadow: 3mm 3mm 0 <?= e($accent) ?>; }
   .qr { display: block; width: 110mm; height: 110mm; image-rendering: pixelated; }
   .steps { display: flex; gap: 8mm; margin-top: 8mm; font-size: 13pt; font-weight: 600; }
@@ -49,8 +50,8 @@ header('Content-Type: text/html; charset=utf-8');
 <div class="sheet">
   <?php if ($logo = safe_url($s['logo_url'])): ?><img class="logo" src="<?= e($logo) ?>" alt=""><?php endif; ?>
   <p class="eyebrow"><?= e(fmt_datetime($s['event_datetime'], 'l, j F')) ?></p>
-  <h1><?= e($s['event_name']) ?></h1>
-  <div class="cta">Scan to buy tickets</div>
+  <h1><?= display_text($s['event_name']) ?></h1>
+  <div class="cta"><?= display_text('Scan to buy tickets') ?></div>
   <div class="qrbox"><img class="qr" src="data:image/png;base64,<?= $qr ?>" alt="QR code to buy tickets"></div>
   <div class="steps">
     <span><b>1</b> Scan</span><span><b>2</b> Pay with UPI</span><span><b>3</b> Show QR at entry</span>

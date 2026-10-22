@@ -5,10 +5,10 @@ const LOGIN_MAX_FAILS = 5;
 const LOGIN_LOCK_SECONDS = 300;
 
 /** Currently signed-in user (re-checked against the DB on every request). */
-function current_user(): ?array
+function current_user(bool $refresh = false): ?array
 {
     static $user = false;
-    if ($user !== false) {
+    if ($user !== false && !$refresh) {
         return $user;
     }
     start_session();
@@ -85,6 +85,7 @@ function attempt_login(string $username, string $password): array
     $_SESSION['uid'] = (int) $row['id'];
     $_SESSION['csrf'] = bin2hex(random_bytes(32));
     rate_clear($bucket);
+    current_user(true); // drop the cached "signed out" result from earlier in this request
     return ['ok' => true];
 }
 
