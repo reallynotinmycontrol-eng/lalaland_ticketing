@@ -1,0 +1,2 @@
+# Nothing in app/ is ever served to the web (config, libraries, logs, data).
+Require all denied
