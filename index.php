@@ -2,6 +2,13 @@
 declare(strict_types=1);
 require __DIR__ . '/app/bootstrap.php';
 
+// Not installed yet? Send the owner to the installer instead of an error.
+try {
+    q_val('SELECT 1 FROM tk_settings LIMIT 1');
+} catch (PDOException) {
+    redirect('/install.php');
+}
+
 $s = settings();
 $isGate = ($_GET['from'] ?? '') === 'gate';
 $source = $isGate ? 'gate' : 'online';

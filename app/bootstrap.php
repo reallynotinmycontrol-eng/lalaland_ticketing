@@ -33,7 +33,20 @@ if (!is_file(APP_DIR . '/config.php')) {
     header('Content-Type: text/plain; charset=utf-8');
     exit("Setup needed: copy app/config.sample.php to app/config.php and fill in your details.\n");
 }
-$GLOBALS['CONFIG'] = require APP_DIR . '/config.php';
+try {
+    $GLOBALS['CONFIG'] = require APP_DIR . '/config.php';
+} catch (Throwable $e) {
+    // A typo in config.php would otherwise give a blank HTTP 500.
+    http_response_code(500);
+    header('Content-Type: text/plain; charset=utf-8');
+    exit("app/config.php has an error on line " . $e->getLine() . ":\n" . $e->getMessage()
+        . "\n\nCheck that line for a missing quote ('), semicolon (;) or bracket, and use plain straight quotes.\n");
+}
+if (!is_array($GLOBALS['CONFIG'])) {
+    http_response_code(500);
+    header('Content-Type: text/plain; charset=utf-8');
+    exit("app/config.php must end with: return \$c;  (or return [ ... ];)\n");
+}
 
 function config(string $path, mixed $default = null): mixed
 {

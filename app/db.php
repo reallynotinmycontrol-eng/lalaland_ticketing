@@ -34,7 +34,15 @@ function db(): PDO
             (int) config('db.port', 3306),
             config('db.name')
         );
-        $pdo = new PDO($dsn, (string) config('db.user'), (string) config('db.password'), $options);
+        try {
+            $pdo = new PDO($dsn, (string) config('db.user'), (string) config('db.password'), $options);
+        } catch (PDOException $e) {
+            app_log('error', 'DB connect failed: ' . $e->getMessage());
+            http_response_code(500);
+            header('Content-Type: text/plain; charset=utf-8');
+            exit("Can't connect to the database.\n\nCheck db name, user and password in app/config.php. On Hostinger the name and user include the u123456789_ prefix.\n"
+                . (config('debug') ? "\nDetails: " . $e->getMessage() . "\n" : ''));
+        }
         $offset = (new DateTimeImmutable())->format('P');
         $pdo->exec("SET time_zone = '" . $offset . "'");
     }
