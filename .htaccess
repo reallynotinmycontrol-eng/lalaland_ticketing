@@ -7,6 +7,7 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
 # ---- Never serve the private app folder, dotfiles or backups ----
 RewriteRule ^app(/|$) - [F,L]
+RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteRule (^|/)\. - [F,L]
 <FilesMatch "\.(sqlite|log|bak|sql|md|dist|lock|json|sh|bat)$">
     Require all denied
